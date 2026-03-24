@@ -16,3 +16,6 @@ db-init.sql
 
 # Docker Logs
 logs
+
+# My SQL
+mysql-data
