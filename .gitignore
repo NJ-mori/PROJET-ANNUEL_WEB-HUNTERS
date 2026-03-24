@@ -1,0 +1,18 @@
+# Documentations
+ARCHITECTURE.md
+CHARTE_GRAPHIQUE.md
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# Configuration Apache
+apache-config.conf
+
+.env
+
+# Docker GEN
+db-init.sql
+
+# Docker Logs
+logs
