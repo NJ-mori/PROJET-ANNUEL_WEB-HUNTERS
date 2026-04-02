@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html>
 <header>
     <div class='header-left'>
         <a href='#'>
@@ -19,3 +21,6 @@
                 <span class='username'>CURRENT_USER</span>
                 <div class="level-badge">Lvl CURRENT_USER_LEVEL</div>
             </div>
+        </div>
+    </div>
+<body>
