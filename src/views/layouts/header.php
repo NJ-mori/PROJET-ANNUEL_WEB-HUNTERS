@@ -23,4 +23,9 @@
             </div>
         </div>
     </div>
+    <div class="nav-bar">
+        <nav class="WEAKY-HOME">
+            <a href="public\index.php"> WEAKY </a>
+        </nav>
+    </div>
 <body>
