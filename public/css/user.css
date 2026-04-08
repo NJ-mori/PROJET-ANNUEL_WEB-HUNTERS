@@ -1,0 +1,39 @@
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.user-profile:hover {
+    background: var(--bg-tertiary);
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.username {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.level-badge {
+    font-size: 12px;
+    font-weight: 600;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+    padding: 2px 8px;
+    border-radius: 12px;
+    color: white;
+}

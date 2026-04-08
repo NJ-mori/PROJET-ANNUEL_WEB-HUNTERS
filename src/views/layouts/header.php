@@ -1,31 +1,38 @@
-<!DOCTYPE html>
-<html>
 <header>
     <div class='header-left'>
         <a href='#'>
             <div class='logo'>
-                <div class='logo-icon'>logo</div>
+                <div class='logo-icon'>
+                    <img 
+                        src="<?php echo LOGO;?>" 
+                        alt="logo WEAKY" 
+                    />
+                </div>
                 Wiki
             </div>
         </a>
 
         <div class='search-bar'>
-            <span class='search-icon'>search</span>
+            <span class='search-icon'>
+                <?php include ROOT . "/assets/svg/search/search.svg"; ?>
+            </span>
             <input type='text' class='search-input' placeholder='Rechercher un article, un thème...' id='searchInput'>
         </div>
     </div>
+
     <div class='header-profile'>
         <div class='user-profile-container'>
             <div class='user-profile' id='userProfile'>
-                <div class='avatar'>CURRENT_USER_INITIAL</div>
-                <span class='username'>CURRENT_USER</span>
-                <div class="level-badge">Lvl CURRENT_USER_LEVEL</div>
+                <div class='avatar'><?php echo CURRENT_USER_INITIAL; ?></div>
+                <span class='username'><?php echo CURRENT_USER; ?></span>
+                <div class="level-badge">Lvl <?php echo CURRENT_USER_LEVEL; ?></div>
             </div>
         </div>
     </div>
+
     <div class="nav-bar">
         <nav class="WEAKY-HOME">
-            <a href="public\index.php"> WEAKY </a>
+            <a href="#"> WEAKY </a>
         </nav>
     </div>
-<body>
+</header>

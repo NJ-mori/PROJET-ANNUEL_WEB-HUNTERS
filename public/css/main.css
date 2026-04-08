@@ -1,3 +1,13 @@
-.background-logo {
-    opacity: 20;
-}
+@import 'var.css';
+
+@import 'global.css';
+
+@import 'header.css';
+
+@import 'image.css';
+
+@import 'user.css';
+
+@import 'navigation.css';
+
+@import 'footer.css';
