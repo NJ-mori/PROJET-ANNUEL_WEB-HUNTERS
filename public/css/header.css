@@ -8,7 +8,6 @@ header {
   gap: var(--spacing-xl);
   height: 64px;
 }
-
 .header-left {
   display: flex;
   justify-content: flex-start;
@@ -18,7 +17,7 @@ header {
 .menu {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 50px;
   min-width: 50px;
 }
@@ -32,42 +31,37 @@ header {
   align-items: center;
   gap: 8px;
 }
-
 .logo {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-
 .search-bar {
-  flex: 1;
+  display: flex;
   justify-content: center;
   max-width: 400px;
   display: flex;
   align-items: center;
 }
-
 .header-right {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: var(--spacing-lg);
 }
-
 .history {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
-
 .history-logo {
-  height: 50px;
+  height: 40px;
   width: auto;
 }
-
 .search-input {
   flex: 1;
   padding: 10px 16px;
+  width: 50;
   background: var(--bg-tertiary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -75,14 +69,12 @@ header {
   font-size: 14px;
   transition: all var(--transition-fast);
 }
-
 .search-input:focus {
   outline: none;
   border-color: var(--accent-purple);
   background: #2d3e52;
   box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
 }
-
 .search-icon {
   display: flex;
   align-items: center;
@@ -93,7 +85,6 @@ header {
   color: var(--text-tertiary);
   pointer-events: none;
 }
-
 .search-icon svg {
   width: 100%;
   height: 100%;
