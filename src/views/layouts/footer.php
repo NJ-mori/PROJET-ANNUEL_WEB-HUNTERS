@@ -1,6 +1,6 @@
         <footer>
             <p>__ WEAKY - NJ - AJ - EF __</p>
-            <script src="js/main.js"></script>
+            <button id="btn" > Dark Mode</button>
         </footer>
     </body>
 </html>

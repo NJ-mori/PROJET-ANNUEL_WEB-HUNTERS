@@ -1,6 +1,8 @@
-const monBouton = document.querySelector('#mon-super-btn');
-const monTitre = document.querySelector('h1');
+"use strict()";
+const bouton = document.querySelector("#btn");
+const DarkMode = ".darkMode";
+const body = document.querySelector("body");
 
-monBouton.addEventListener('click', function() {
-    monTitre.classList.toggle('titre-actif');
-})
+bouton.addEventListener("click", function () {
+  body.classList.toggle("darkMode");
+});

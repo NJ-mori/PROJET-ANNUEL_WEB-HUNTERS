@@ -10,7 +10,7 @@ include_once SRC . "/views/layouts/header.php";
 ?>
     
 <main>
-<section>
+<section id="WELCOME">
     <h1>Bienvenue sur <?php echo SITE_NAME; ?> !</h1>
     <p><?php echo SITE_DESCRIPTION; ?></p>
 </section>
