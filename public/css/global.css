@@ -14,7 +14,11 @@ body {
   overflow: hidden;
 }
 
-.darkMode {
-  background: var(--bg-dark);
-  color: var(--text-dark);
+a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
 }

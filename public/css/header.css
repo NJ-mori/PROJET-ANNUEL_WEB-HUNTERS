@@ -20,11 +20,22 @@ header {
   justify-content: flex-start;
   width: 50px;
   min-width: 50px;
+  padding-top: (0px, var(--spacing-sm)) !important;
+  padding-bottom: (0px, var(--spacing-sm)) !important;
+}
+.menu_active {
+  background-color:;
 }
 .menu img {
-  display: block;
+  display: flex;
   max-width: 100%;
   height: auto;
+}
+.bars-icon {
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
 }
 .logo-site {
   display: flex;
@@ -75,23 +86,61 @@ header {
   box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
 }
 
-.menu-toggle {
-  background-color: var(--bg-secondary);
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
 .search-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 35px;
+  height: 35px;
   margin-right: 8px;
   color: var(--text-tertiary);
   pointer-events: none;
 }
-.search-icon svg {
+.search-icon img {
   width: 100%;
-  height: 100%;
+  height: auto;
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: 64px;
+  right: 1;
+  background-color: var(--bg-secondary);
+  padding: var(--spacing-lg);
+  display: none;
+}
+.profile-dropdown-connected {
+  position: absolute;
+  top: 64px;
+  right: 0;
+  background-color: var(--bg-secondary);
+  padding: var(--spacing-lg);
+  display: none;
+}
+.profile-dropdown-disconnected {
+  position: absolute;
+  top: 64px;
+  right: 0;
+  background-color: var(--bg-secondary);
+  padding: var(--spacing-lg);
+  display: none;
+}
+
+.profile-dropdown-disconnected button,
+.profile-dropdown-connected button {
+  display: flex;
+  background: transparent;
+  font-size: 15px;
+  padding: 5px;
+}
+
+.menu_active,
+.profile_active {
+  display: grid;
+}
+
+button {
+  background: transparent;
+  font-size: 20px;
+  padding: 5px;
 }

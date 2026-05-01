@@ -10,7 +10,7 @@ include_once SRC . "/views/layouts/header.php";
 <main>
     <section>
         <article>
-            <h1>CATEGORIES</h1>
+            <h1>PROFIL</h1>
         </article>
     </section>
 </main>

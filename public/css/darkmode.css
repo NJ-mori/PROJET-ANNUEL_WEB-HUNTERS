@@ -1,0 +1,15 @@
+.darkModeHeader {
+  background: rgb(47, 47, 90);
+  -webkit-text-fill-color: black;
+  color: black;
+}
+.darkModeBody {
+  background: rgb(84, 84, 139);
+  -webkit-text-fill-color: black;
+  color: black;
+}
+.darkModeFooter {
+  background: rgb(47, 47, 90);
+  -webkit-text-fill-color: black;
+  color: black;
+}

@@ -10,13 +10,11 @@
         <body class="darkMode">
             <header>
                 <div class ="header-left">
-                    <div class ="menu">
-                        <span class ="bars-icon">
+                        <span>
                             <button class="menu-toggle"> 
-                                <img class ="bars-icon" src="../assets/svg/search/3bars.svg" width="70"/> 
+                                <img class ="bars-icon" src="../assets/svg/search/3bars.svg"/> 
                             </button>
                         </span>
-                    </div>
                     <div class='logo-site'>
                         <a href='index.php' class='logo-link'>
                             <div class='logo'>
@@ -30,19 +28,21 @@
                     </div>
                 </div>
                 <div class='search-bar'>
-                    <span class='search-icon' >
+                    <button class='search-icon' >
                         <?php include ROOT . "../assets/svg/search/search.svg";  ?>
-                    </span>
+                    </button>
                     <input type='text' class='search-input' placeholder='Rechercher un article, un thème...' id='searchInput'>
                 </div>
                 <div class='header-right'>
                     <div class='header-profile'>
                         <div class='user-profile-container'>
-                            <div class='user-profile' id='userProfile'>
+                            <button class="profile-button">
+                                <div class='user-profile' id='userProfile'>
                                 <div class='avatar'><?php echo CURRENT_USER_INITIAL; ?></div>
                                 <span class='username'><?php echo CURRENT_USER; ?></span>
                                 <div class="level-badge">Lvl <?php echo CURRENT_USER_LEVEL; ?></div>
-                            </div>
+                                </div>
+                            </button>
                         </div>
                     </div>
                     <div class='history'>
@@ -52,34 +52,30 @@
                     </div>
                 </div>
             </header>
-            <div class='profile-dropdown-connected'>
-                <aside>
-                    <ul>
-                        <li><a href="#">Mon Profil</a></li>
-                        <li><a href="#">Paramètres</a></li>
-                        <li><a href="#">Adminstration</a></li>
-                        <li><a href="#">Déconnexion</a></li>
-                    </ul>
-                </aside>
-            </div>
-            <div class='profile-dropdown-connected'>
-                <aside>
-                    <ul>
-                        <li><a href="#">Insription</a></li>
-                        <li><a href="#">Se Connecter</a></li>
-                    </ul>
-                </aside>
-            </div>
             <div class='menu-dropdown'>
                 <aside>
                     <ul>
-                        <li><a href="#">NAVIGATION</a></li>
+                        <li><button><a href="../public/article.php">NAVIGATION</a></button></li>
+                        <li><button><a href="../public/category.php">CATEGORIES</a></button></li>
+                        <li><button><a href="../public/user.php">UTILSATEURS</a></button></li>
                     </ul>
+                </aside>
+            </div>
+            <div class='profile-dropdown-connected'>
+                <aside>
                     <ul>
-                        <li><a href="#">CATEGORIES</a></li>
+                        <li><button><a href="../public/profile.php">Mon Profil</a></button></li>
+                        <li><button><a href="../public/settings.php">Paramètres</a></button></li>
+                        <li><button><a href="../public/admin.php">Adminstration</a></button></li>
+                        <li><button><a href="#">Déconnexion</a></button></li>
                     </ul>
+                </aside>
+            </div>
+            <div class='profile-dropdown-disconnected'>
+                <aside>
                     <ul>
-                        <li><a href="#">UTILSATEURS</a></li>
-                    </ul>
+                        <li><button><a href="#">Insription</a></button></li>
+                        <li><button><a href="#">Se Connecter</a></button></li>
+                    </ul>   
                 </aside>
             </div>
