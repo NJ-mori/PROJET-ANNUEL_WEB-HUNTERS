@@ -102,12 +102,12 @@ header {
 }
 
 .menu-dropdown {
-  position: absolute;
   top: 64px;
-  right: 1;
   background-color: var(--bg-secondary);
   padding: var(--spacing-lg);
   display: none;
+  width: 100%;
+  background-color: rgb(29, 35, 53);
 }
 .profile-dropdown-connected {
   position: absolute;
@@ -124,6 +124,7 @@ header {
   background-color: var(--bg-secondary);
   padding: var(--spacing-lg);
   display: none;
+  gap: 33%;
 }
 
 .profile-dropdown-disconnected button,
@@ -134,7 +135,10 @@ header {
   padding: 5px;
 }
 
-.menu_active,
+.menu_active {
+  display: block;
+}
+
 .profile_active {
   display: grid;
 }

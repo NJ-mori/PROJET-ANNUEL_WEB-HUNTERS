@@ -15,7 +15,7 @@ include_once SRC . "/views/layouts/header.php";
     </section>
 
 <?php
-$sql = "SELECT id, nom, email FROM utilisateurs ORDER BY id ASC";
+$sql = "SELECT id, username, email FROM USER ORDER BY id ASC";
 $stmt = $pdo->query($sql);
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -26,8 +26,8 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <?php foreach ($users as $user): ?>
     <div class="card">
-        <h3>#<?= $user['id'] ?> - <?= htmlspecialchars($user['nom']) ?></h3>
-        <p>Email : <?= htmlspecialchars($user['email']) ?></p>
+        <h3>#<?= $user['id'] ?> - <?= $user['username'] ?></h3>
+        <p>Email : <?= $user['email'] ?></p>
     </div>
 <?php endforeach; ?>
 

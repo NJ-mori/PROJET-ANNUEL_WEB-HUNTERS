@@ -50,15 +50,19 @@
                             <img class ="history-logo" src="../assets/svg/search/clock-illu.svg" width="70"/>
                         </span>
                     </div>
+                    <div class = "chatbubble">
+                        <span>
+                            <img class ="chatbubble-logo" src="../assets/svg/search/bubble.svg" width="70"/>
+                        </span>
+
+                    </div>
                 </div>
             </header>
             <div class='menu-dropdown'>
                 <aside>
-                    <ul>
-                        <li><button><a href="../public/article.php">NAVIGATION</a></button></li>
-                        <li><button><a href="../public/category.php">CATEGORIES</a></button></li>
-                        <li><button><a href="../public/user.php">UTILSATEURS</a></button></li>
-                    </ul>
+                    <button><a href="../public/article.php">NAVIGATION</a></button>
+                    <button><a href="../public/category.php">CATEGORIES</a></button>
+                    <button><a href="../public/user.php">UTILISATEURS</a></button>
                 </aside>
             </div>
             <div class='profile-dropdown-connected'>
@@ -74,7 +78,7 @@
             <div class='profile-dropdown-disconnected'>
                 <aside>
                     <ul>
-                        <li><button><a href="#">Insription</a></button></li>
+                        <li><button><a href="../public/signup.php">Insription</a></button></li>
                         <li><button><a href="#">Se Connecter</a></button></li>
                     </ul>   
                 </aside>
