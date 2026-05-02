@@ -1,14 +1,14 @@
 <header>
     <div class='header-left'>
-        <a href='#'>
+        <a href='/'>
             <div class='logo'>
                 <div class='logo-icon'>
                     <img 
-                        src="<?php echo LOGO;?>" 
+                        src="<?php echo ROOT . "../assets/logo/logo_Web-Hunters_WEAKY.png";?>" 
                         alt="logo WEAKY" 
                     />
                 </div>
-                Wiki
+                WEAKY
             </div>
         </a>
 
@@ -20,19 +20,15 @@
         </div>
     </div>
 
-    <div class='header-profile'>
-        <div class='user-profile-container'>
-            <div class='user-profile' id='userProfile'>
-                <div class='avatar'><?php echo CURRENT_USER_INITIAL; ?></div>
-                <span class='username'><?php echo CURRENT_USER; ?></span>
-                <div class="level-badge">Lvl <?php echo CURRENT_USER_LEVEL; ?></div>
-            </div>
-        </div>
+    <div class='theme-page'>
+        <button id='btn-theme' onclick='toggleTheme()' class='btn-theme-change'>Theme Mode</button>
     </div>
 
-    <div class="nav-bar">
-        <nav class="WEAKY-HOME">
-            <a href="#"> WEAKY </a>
-        </nav>
+    <?php require_once SRC . '/views/users/userMenu.php'; ?>
+
+    <div class="history">
+        <span>
+            <img src='<?php include ROOT . "/assets/svg/search/clock-illu.svg"; ?>' class='history' width='70' />
+        </span>             
     </div>
 </header>

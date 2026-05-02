@@ -1,6 +1,10 @@
-const monBouton = document.querySelector('#mon-super-btn');
-const monTitre = document.querySelector('h1');
+import { MenuProfile } from "./menu.js";
+import { ThemeProfile } from "./theme.js";
 
-monBouton.addEventListener('click', function() {
-    monTitre.classList.toggle('titre-actif');
-})
+document.addEventListener("DOMContentLoaded", () => {
+    new MenuProfile();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    new ThemeProfile();
+});

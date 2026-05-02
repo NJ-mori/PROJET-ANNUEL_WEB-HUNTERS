@@ -1,17 +1,27 @@
 <?php
-
 session_start();
 
 define("ROOT", dirname(__DIR__));
 define("CONFIG", ROOT . "/configs");
 define("SRC", ROOT . "/src");
-define("LOGO", ROOT . "/assets/logo/logo_Web-Hunters_WEAKY.png");
 
 require_once CONFIG . "/config.php";
+
+require_once SRC . "/middleware/Router.php";
+
+$router = new Router();
+
+$router->addRoute('GET', '/', function() {
+    include SRC . "/views/pages/accueil.php";
+});
+
+$router->addRoute('GET', '/contact', function() {
+    include SRC . "/views/pages/contact.php";
+});
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme='dark'>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,9 +32,8 @@ require_once CONFIG . "/config.php";
 <?php
 include_once SRC . "/views/layouts/header.php";
 
-include_once SRC . '/views/layouts/footer.php';
+$route->dispatch()
 
+include_once SRC . '/views/layouts/footer.php';
 ?>
-    <h1 class="">Bonjour</h1>
-    <button id="mon-super-btn">Clique !</button>
 <script src="js/main.js"></script>
