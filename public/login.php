@@ -6,7 +6,6 @@ define("CONFIG", ROOT . "/configs");
 define("SRC", ROOT . "/src");
 
 require_once CONFIG . "/config.php";
-include_once SRC . "/views/layouts/header.php";
 
 $erreur = '';
 
@@ -19,14 +18,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($user && password_verify($_POST['password'], $user['password'])) {
         $_SESSION['id']   = $user['id'];
         $_SESSION['username']     = $user['username'];
-
         header('Location: profile.php');
         exit;
     } else {
         $erreur = 'Nom d\'utilisateur ou mot de passe incorrect.';
     }
+    if ($_SESSION['id']   = $user['id']) {
+        echo "Vous êtes déja connecté.";
+        exit;
+    }
 }
-?>
+include_once SRC . "/views/layouts/header.php";
+?>  
 
   <main class="main-content">
     <h2 class="section-title">Connexion</h2>

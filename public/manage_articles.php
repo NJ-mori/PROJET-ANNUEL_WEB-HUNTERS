@@ -26,4 +26,7 @@ require_once SRC . "/views/layouts/header.php";
             <a href="manage_categories.php" class="admin-link">Gérer les catégories</a>
             <a href="index.php" class="admin-link">Revenir à l'accueil</a>
         </div>
+        <h2>Liste des utilisateurs</h2>
+
+</div>
     </section>

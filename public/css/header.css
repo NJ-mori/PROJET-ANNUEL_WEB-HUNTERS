@@ -24,7 +24,7 @@ header {
   padding-bottom: (0px, var(--spacing-sm)) !important;
 }
 .menu_active {
-  background-color:;
+  background-color: #35355c;
 }
 .menu img {
   display: flex;

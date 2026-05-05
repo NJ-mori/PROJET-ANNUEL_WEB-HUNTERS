@@ -16,10 +16,10 @@ bouton.addEventListener("click", function () {
   footer.classList.toggle("darkModeFooter");
 });
 
-btnMenu.addEventListener("click", () => {
+btnMenu.addEventListener("click", function () {
   menu.classList.toggle("menu_active");
 });
-btnProfile.addEventListener("click", () => {
+btnProfile.addEventListener("click", function () {
   profilec.classList.toggle("profile_active");
   profiled.classList.toggle("profile_active");
 });
