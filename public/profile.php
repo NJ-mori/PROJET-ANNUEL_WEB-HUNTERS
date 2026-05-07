@@ -8,10 +8,16 @@ include_once SRC . "/views/layouts/header.php";
 ?>
     
 <main>
+    <article>
+        <h1>PROFIL</h1>
+    </article>
     <section>
-        <article>
-            <h1>PROFIL</h1>
-        </article>
+        <div class="profile-info">
+            <h2>Informations personnelles</h2>
+            <p>Username : <?= $_SESSION['username'] ?></p><button>
+           <p>Email : <?= $_SESSION['email'] ?></p><button>
+            <a href="edit_profile.php" class="edit-btn">Modifier</a></button>
+        </div>
     </section>
 </main>
 

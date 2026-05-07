@@ -11,19 +11,21 @@ $erreur = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $stmt = $pdo->prepare('SELECT * FROM USER WHERE username = ?');
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
     $stmt->execute([$_POST['username']]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user && password_verify($_POST['password'], $user['password'])) {
-        $_SESSION['id']   = $user['id'];
-        $_SESSION['username']     = $user['username'];
+        $_SESSION['id_user'] = $user['id_user'];
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['role'] = $user['role'];
         header('Location: profile.php');
         exit;
     } else {
         $erreur = 'Nom d\'utilisateur ou mot de passe incorrect.';
     }
-    if ($_SESSION['id']   = $user['id']) {
+    if ($_SESSION['id_user'] = $user['id_user']) {
         echo "Vous êtes déja connecté.";
         exit;
     }

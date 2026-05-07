@@ -34,8 +34,8 @@
                     <div class='user-profile-container'> 
                         <button class="profile-button"> 
                             <div class='user-profile' id='userProfile'> 
-                                <?php if (isset($_SESSION['id'])): ?> 
-                                    <span class='avatar'><?php echo $_SESSION['id']; ?></span> 
+                                <?php if (isset($_SESSION['id_user'])): ?> 
+                                    <span class='avatar'><?php echo $_SESSION['id_user']; ?></span> 
                                     <span class='username'></span>
                                     <span class="level-badge">Lvl 1</span> 
                                 <?php else : ?>
@@ -65,20 +65,20 @@
                         <button><a href="../public/user.php">UTILISATEURS</a></button>
                     </aside> 
                 </div> 
-                <?php if (isset($_SESSION['id'])): ?> 
+                <?php if (isset($_SESSION['id_user'])) { ?> 
                 <div class='profile-dropdown-connected'> 
                     <aside> 
                         <ul> 
                             <li><button><a href="../public/profile.php">Mon Profil</a></button></li> 
                             <li><button><a href="../public/settings.php">Paramètres</a></button></li> 
-                            <?php //if (isset($_SESSION['role']) == '1'): ?>
+                            <?php if ($_SESSION['role']) { ?>
                             <li><button><a href="../public/admin.php">Administration</a></button></li> 
-                            <?php //endif; ?> 
+                            <?php } ?> 
                             <li><button><a href="../public/logout.php">Déconnexion</a></button></li>
                         </ul> 
                     </aside> 
                 </div> 
-                <?php else: ?>
+                <?php } elseif (!isset($_SESSION['id_user'])) { ?>
                 <div class='profile-dropdown-disconnected'> 
                     <aside> 
                         <ul> 
@@ -87,4 +87,4 @@
                         </ul> 
                     </aside> 
                 </div> 
-                <?php endif;
+                <?php } ?>

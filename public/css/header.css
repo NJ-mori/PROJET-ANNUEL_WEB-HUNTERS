@@ -124,7 +124,6 @@ header {
   background-color: var(--bg-secondary);
   padding: var(--spacing-lg);
   display: none;
-  gap: 33%;
 }
 
 .profile-dropdown-disconnected button,

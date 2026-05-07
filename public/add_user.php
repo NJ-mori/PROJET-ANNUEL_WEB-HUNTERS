@@ -1,12 +1,10 @@
-<?PHP
-session_start();
+<?php
 
 define("ROOT", dirname(__DIR__));
 define("CONFIG", ROOT . "/configs");
 define("SRC", ROOT . "/src");
 
 require_once CONFIG . "/config.php";
-include_once SRC . "/views/layouts/header.php";
 
 $erreur = '';
 $succes = '';
@@ -36,37 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 date('Y-m-d H:i:s')
             ]);
 
-            header('Location: login.php');
+            header('Location: manage_users.php');
             exit;
         }
     }
 }
-?>
-
-<main>
-    <section>
-        <h1>Inscription</h1>
-        <?php if ($erreur): ?>
-            <div class="error"><?php echo $erreur; ?></div>
-        <?php endif; ?>
-        <?php if ($succes): ?>
-            <div class="success"><?php echo $succes; ?></div>
-        <?php endif; ?>
-        <form method="POST">
-            <label for="username">username :</label>
-            <input type="text" id="username" name="username" required>
-
-            <label for="email">email :</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="password">password :</label>
-            <input type="password" id="password" name="password" required>
-
-            <button type="submit">sign up</button>
-        </form>
-    </section>
-</main>
-
-<?php
-include_once SRC . '/views/layouts/footer.php';
 ?>
