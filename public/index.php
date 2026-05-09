@@ -12,7 +12,7 @@ require_once SRC . "/middleware/Router.php";
 $router = new Router();
 
 $router->addRoute('GET', '/', function() {
-    include SRC . "/views/pages/accueil.php";
+    include SRC . "/views/pages/home.php";
 });
 
 $router->addRoute('GET', '/contact', function() {
@@ -32,7 +32,7 @@ $router->addRoute('GET', '/contact', function() {
 <?php
 include_once SRC . "/views/layouts/header.php";
 
-$route->dispatch()
+$router->dispatch();
 
 include_once SRC . '/views/layouts/footer.php';
 ?>

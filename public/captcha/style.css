@@ -1,0 +1,88 @@
+.captcha-login-block {
+    margin-top: 8px;
+}
+
+#game {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+#parts {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background: #222;
+    min-width: 340px;
+    max-width: 340px;
+}
+
+#parts canvas {
+    width: 160px;
+    height: auto;
+    cursor: grab;
+    border: 1px solid #666;
+    border-radius: 4px;
+    display: block;
+}
+
+.section-title {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #ccc;
+}
+
+.captcha-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#resetBtn {
+    margin-top: 10px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    background: #2ecc71;
+    color: #111;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#resetBtn:hover {
+    background: #27ae60;
+}
+
+#validateBtn {
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    background: #3498db;
+    color: #111;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#validateBtn:hover {
+    background: #2980b9;
+}
+
+.status-message {
+    margin-top: 10px;
+    min-height: 1.2em;
+    color: #ccc;
+}
+
+.status-message.success-message {
+    color: #2ecc71;
+}
+
+.status-message.fail-message {
+    color: #cc2e2e;
+}
