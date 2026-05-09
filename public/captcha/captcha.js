@@ -2,7 +2,6 @@ const container = document.getElementById("parts");
 const status = document.getElementById("status");
 const resetBtn = document.getElementById("resetBtn");
 const validateBtn = document.getElementById("validateBtn");
-const hiddenCaptchaInput = document.getElementById("captcha_valid");
 
 const img = new Image();
 let currentImageId = null;
@@ -10,8 +9,11 @@ window.captchaSolved = false;
 
 function setCaptchaSolvedState(isSolved) {
     window.captchaSolved = isSolved;
-    if (hiddenCaptchaInput) {
-        hiddenCaptchaInput.value = isSolved ? "1" : "0";
+
+    if (isSolved) {
+        container.querySelectorAll("canvas").forEach((canvas) => {
+            canvas.draggable = false;
+        });
     }
 }
 
@@ -92,25 +94,38 @@ function updateStatus(state) {
     }
 }
 
-function isSolved() {
-    for (let i = 0; i < currentOrder.length; i++) {
-        if (currentOrder[i].id !== i + 1) {
-            return false;
-        }
-    }
-    return true;
-}
+async function validateCaptcha() {
+    const order = currentOrder.map((piece) => piece.id);
 
-function validateCaptcha() {
-    if (isSolved()) {
-        updateStatus("complete");
-        setCaptchaSolvedState(true);
-        sendCaptchaStat("completed");
-    } else {
+    try {
+        const response = await fetch("captcha/validate.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                image_id: currentImageId,
+                order: order,
+            }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+            updateStatus("complete");
+            setCaptchaSolvedState(true);
+            sendCaptchaStat("completed");
+            return;
+        }
+
         updateStatus("error");
         setCaptchaSolvedState(false);
         sendCaptchaStat("failed");
         startCaptcha("error");
+    } catch (error) {
+        console.error("Unable to validate captcha", error);
+        updateStatus("error");
+        setCaptchaSolvedState(false);
     }
 }
 
@@ -204,7 +219,7 @@ async function startCaptcha(resetType = "reset") {
 
     do {
         currentOrder = shuffle(pieces);
-    } while (isSolved());
+    } while (currentOrder[0].id === 1 && currentOrder[1].id === 2 && currentOrder[2].id === 3 && currentOrder[3].id === 4);
 
     drawPieces();
 

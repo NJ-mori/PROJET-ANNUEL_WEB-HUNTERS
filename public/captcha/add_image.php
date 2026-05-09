@@ -1,5 +1,8 @@
 <?php
 include_once "config.php";
+require_once __DIR__ . "/../../src/services/AdminService.php";
+
+AdminService::requireAdmin('../login.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
     $file = $_FILES['image'];
@@ -30,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
     $stmt->execute([$filename, $imageData, $mimeType]);
 
     logAction("add_image: Inserted image filename=$filename mime=$mimeType.");
-    header('Location: admin.php');
+    header('Location: ../manage_captcha.php');
     exit;
 } else {
     logAction("add_image: Invalid request method or missing file.");

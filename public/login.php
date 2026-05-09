@@ -1,86 +1,103 @@
 <?php
-session_start();
-require_once __DIR__ . '/../configs/config.php';
+define("ROOT", dirname(__DIR__));
+define("CONFIG", ROOT . "/configs");
+define("SRC", ROOT . "/src");
+
+require_once CONFIG . "/config.php";
+require_once SRC . "/services/LogService.php";
 
 $erreur = '';
+$extraStyles = ['captcha/style.css'];
+
+LogService::visit('login.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
-    $captcha_valid = $_POST['captcha_valid'] ?? '0';
+    $captchaOk = !empty($_SESSION['captcha_valid'])
+        && !empty($_SESSION['captcha_validated_at'])
+        && time() - $_SESSION['captcha_validated_at'] <= 300;
 
-    if ($captcha_valid !== '1') {
+    unset($_SESSION['captcha_valid'], $_SESSION['captcha_validated_at'], $_SESSION['captcha_expected_order'], $_SESSION['captcha_image_id']);
+
+    if (!$captchaOk) {
         $erreur = 'Veuillez compléter le captcha avant de vous connecter.';
+        LogService::add('login_failed', 'login.php');
     } elseif ($username === '' || $password === '') {
         $erreur = 'Veuillez remplir tous les champs.';
+        LogService::add('login_failed', 'login.php');
     } else {
         $stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
         $stmt->execute([$username]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['id_user'] = $user['id_user'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['role'] = $user['role'] ?? null;
+            if (!$user['is_verified']) {
+                $erreur = 'Votre compte doit être vérifié par email avant la connexion.';
+                LogService::add('login_failed', 'login.php', $user['id_user']);
+            } else {
+                $_SESSION['id_user'] = $user['id_user'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['role_id'] = $user['role_id'] ?? 1;
 
-            header('Location: index.php');
-            exit;
+                LogService::add('login_success', 'login.php', $user['id_user']);
+
+                header('Location: index.php');
+                exit;
+            }
         } else {
             $erreur = 'Nom d’utilisateur ou mot de passe incorrect.';
+            LogService::add('login_failed', 'login.php', $user['id_user'] ?? null);
         }
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion - WEAKY</title>
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="captcha/style.css">
-</head>
-<body>
-    <?php include_once __DIR__ . '/../src/views/layouts/header.php'; ?>
 
-    <main style="padding: 32px; min-height: calc(100vh - 128px); overflow-y: auto;">
-        <div class="container" style="justify-content: center;">
-            <div class="card" style="width: 100%; max-width: 520px; height: auto;">
-                <h2 style="margin-bottom: 16px;">Connexion</h2>
+include_once SRC . "/views/layouts/header.php";
+?>
+
+    <main class="auth-main">
+        <div class="auth-container">
+            <div class="card auth-card">
+                <h2>Connexion</h2>
 
                 <?php if (!empty($erreur)): ?>
-                    <p class="status-message fail-message" style="margin-bottom: 16px;">
+                    <p class="status-message fail-message">
                         <?= htmlspecialchars($erreur, ENT_QUOTES, 'UTF-8'); ?>
                     </p>
                 <?php endif; ?>
 
-                <form method="POST" id="loginForm">
-                    <div style="display: flex; flex-direction: column; gap: 14px;">
-                        <div>
-                            <label for="username" style="display:block; margin-bottom:6px;">Nom d'utilisateur</label>
-                            <input
-                                type="text"
-                                id="username"
-                                name="username"
-                                required
-                                style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border-color); background:var(--bg-tertiary); color:var(--text-primary);"
-                            >
-                        </div>
+                <form method="POST" id="loginForm" class="login-form">
+                    <div class="login-grid">
+                        <div class="login-fields">
+                            <div class="form-field">
+                                <label for="username">Nom d'utilisateur</label>
+                                <input
+                                    type="text"
+                                    id="username"
+                                    name="username"
+                                    required
+                                >
+                            </div>
 
-                        <div>
-                            <label for="password" style="display:block; margin-bottom:6px;">Mot de passe</label>
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                required
-                                style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border-color); background:var(--bg-tertiary); color:var(--text-primary);"
-                            >
+                            <div class="form-field">
+                                <label for="password">Mot de passe</label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    required
+                                >
+                            </div>
+
+                            <button type="submit">
+                                Se connecter
+                            </button>
                         </div>
 
                         <div class="captcha-login-block">
                             <p class="section-title">Captcha</p>
-                            <p style="margin-bottom:10px;">Rearrange the pieces into the correct order</p>
+                            <p>Rearrange the pieces into the correct order</p>
 
                             <div id="game">
                                 <div id="parts"></div>
@@ -92,24 +109,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
 
                             <p id="status" class="status-message"></p>
-                            <input type="hidden" name="captcha_valid" id="captcha_valid" value="0">
                         </div>
-
-                        <button
-                            type="submit"
-                            style="padding:12px 16px; border:none; border-radius:8px; background:var(--accent-purple); color:white; font-weight:600; cursor:pointer;"
-                        >
-                            Se connecter
-                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </main>
 
-    <?php include_once __DIR__ . '/../src/views/layouts/footer.php'; ?>
-
-    <script src="js/main.js"></script>
     <script src="captcha/captcha.js"></script>
     <script>
         window.captchaSolved = false;
@@ -130,5 +136,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             });
         }
     </script>
-</body>
-</html>
+<?php
+include_once SRC . '/views/layouts/footer.php';
+?>

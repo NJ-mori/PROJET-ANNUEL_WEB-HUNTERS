@@ -3,6 +3,9 @@ require_once __DIR__ . '/config.php';
 
 header('Content-Type: application/json');
 
+$_SESSION['captcha_valid'] = false;
+unset($_SESSION['captcha_validated_at'], $_SESSION['captcha_expected_order'], $_SESSION['captcha_image_id']);
+
 try {
     $stmt = $pdo->prepare('
         SELECT id, filename, image_data, mime_type
@@ -21,6 +24,8 @@ try {
         exit;
     }
 
+    $_SESSION['captcha_image_id'] = (int)$selected['id'];
+    $_SESSION['captcha_expected_order'] = [1, 2, 3, 4];
     logAction("fetch_image: Served image id={$selected['id']} filename={$selected['filename']}.");
 
     echo json_encode([

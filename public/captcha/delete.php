@@ -1,5 +1,8 @@
 <?php
 include_once "config.php";
+require_once __DIR__ . "/../../src/services/AdminService.php";
+
+AdminService::requireAdmin('../login.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['id'])) {
     $id = intval($_POST['id']);
@@ -12,5 +15,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['id'])) {
     logAction("delete: Deleted image id=$id.");
 }
 
-header('Location: admin.php');
+header('Location: ../manage_captcha.php');
 exit;
