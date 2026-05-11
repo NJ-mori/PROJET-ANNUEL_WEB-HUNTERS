@@ -31,7 +31,9 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <?php foreach ($users as $user): ?>
         <div class="card">
             <h3>#<?= htmlspecialchars($user['id_user'], ENT_QUOTES, 'UTF-8') ?> - <?= htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8') ?></h3>
-            <p>Email : <?= htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8') ?></p>
+            <?php if (($_SESSION['role_id'] ?? 0) == 2): ?>
+                <p>Email : <?= htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8') ?></p>
+            <?php endif; ?>
         </div>
 <?php endforeach; ?>
 
