@@ -7,19 +7,66 @@ const btnProfile = document.querySelector(".profile-button");
 const menu = document.querySelector(".menu-dropdown");
 const profilec = document.querySelector(".profile-dropdown-connected");
 const profiled = document.querySelector(".profile-dropdown-disconnected");
+class ThemeProfile {
+  constructor() {}
 
-if (bouton) {
-  const setThemeButtonText = function () {
-    bouton.textContent = body.classList.contains("lightMode") ? "Dark Mode" : "Light Mode";
-  };
+  getSystemTheme() {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
 
-  setThemeButtonText();
+  setTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }
 
-  bouton.addEventListener("click", function () {
-    body.classList.toggle("lightMode");
-    setThemeButtonText();
-  });
+  initialize() {
+    console.log(localStorage.getItem("theme"));
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      this.setTheme(savedTheme);
+      if (savedTheme === "light") {
+        body.classList.add("lightMode");
+      }
+      setThemeButtonText();
+    } else {
+      this.setTheme(this.getSystemTheme());
+    }
+  }
+
+  toggleTheme() {
+    const current = document.documentElement.getAttribute("data-theme");
+    const newTheme = current === "dark" ? "light" : "dark";
+    this.setTheme(newTheme);
+  }
+
+  setupSystemThemeListener() {
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (e) => {
+        const savedTheme = localStorage.getItem("theme");
+        if (!savedTheme) {
+          this.setTheme(e.matches ? "dark" : "light");
+        }
+      });
+  }
 }
+const themeManager = new ThemeProfile();
+
+const setThemeButtonText = function () {
+  bouton.textContent = body.classList.contains("lightMode")
+    ? "Dark Mode"
+    : "Light Mode";
+};
+
+setThemeButtonText();
+
+bouton.addEventListener("click", function () {
+  themeManager.toggleTheme();
+  body.classList.toggle("lightMode");
+  setThemeButtonText();
+});
 
 if (btnMenu && menu) {
   btnMenu.addEventListener("click", function () {
@@ -51,3 +98,7 @@ if (btnProfile) {
     }
   });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  themeManager.initialize();
+});
