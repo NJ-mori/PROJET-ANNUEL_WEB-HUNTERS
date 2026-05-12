@@ -58,7 +58,11 @@
 }
 
 #validateBtn {
-    background: linear-gradient(135deg, var(--accent-indigo), var(--accent-purple));
+    background: linear-gradient(
+        135deg,
+        var(--accent-indigo),
+        var(--accent-purple)
+    );
 }
 
 .status-message {
