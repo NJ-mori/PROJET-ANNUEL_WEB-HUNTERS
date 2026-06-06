@@ -35,6 +35,17 @@ $menuIconSrc =
             ) ?>">
         <?php endforeach; ?>
         <script src="./js/main-function.js" defer></script>
+        <?php if (!empty($_SESSION['id_user'])): ?>
+        <script>
+        (function(){
+            const TIMEOUT_SEC = <?= (int)(defined('SESSION_TIMEOUT') ? SESSION_TIMEOUT : (int) ini_get('session.gc_maxlifetime')) ?>;
+            let _idleTimer;
+            function _resetIdle(){ clearTimeout(_idleTimer); _idleTimer = setTimeout(function(){ window.location.href = 'login.php?timeout=1'; }, TIMEOUT_SEC * 1000); }
+            ['mousemove','mousedown','keydown','touchstart','scroll','click'].forEach(function(e){ document.addEventListener(e, _resetIdle, true); });
+            _resetIdle();
+        })();
+        </script>
+        <?php endif; ?>
     </head> <body class="darkMode">
         <header>
             <div class ="header-left">
