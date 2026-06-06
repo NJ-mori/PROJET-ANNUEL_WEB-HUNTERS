@@ -32,6 +32,13 @@ include_once SRC . "/views/layouts/header.php";
         <article>
             <h1>CATEGORIES</h1>
         </article>
+        <div class = "searchandresultsContainer">
+            <form id="search-form">
+                <input type="text" id="search-input" placeholder="Rechercher un utilisateur…" minlength="2" />
+                <button type="submit">Rechercher</button>
+            </form>
+            <div id="search-results"></div>
+        </div>
         <?php if ($category): ?>
             <h2><?= htmlspecialchars($category['name'], ENT_QUOTES, 'UTF-8') ?></h2>
             <p><?= nl2br(htmlspecialchars($category['description'] ?? '', ENT_QUOTES, 'UTF-8')) ?></p>
@@ -68,6 +75,63 @@ include_once SRC . "/views/layouts/header.php";
         <?php endif; ?>
     </section>
 </main>
+
+<script>
+document.getElementById('search-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const q    = document.getElementById('search-input').value.trim();
+  const zone = document.getElementById('search-results');
+
+  if (q.length < 2) 
+    { 
+        zone.innerHTML = '<p>Saisissez au moins 2 caractères.</p>';
+        return;
+    }
+    zone.innerHTML = '<p>Recherche en cours…</p>';
+
+    try 
+    {
+        const response = await fetch('/PROJET_ANNUEL/PROJET-ANNUEL_WEB-HUNTERS/public/search_categorie.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ q })
+    });
+
+    if (!response.ok) throw new Error('Erreur serveur : ' + response.status);
+    
+    const data = await response.json();
+
+    if (data.count === 0) 
+    {
+        zone.innerHTML = `<p>Aucune catégories trouvé pour "${escHtml(q)}".</p>`;
+        return;
+    }
+
+    let html = `<p>${data.count} catégorie(s) trouvée(s) pour "<strong>${escHtml(q)}</strong>"</p><ul>`;
+    data.results.forEach(cat => {
+        html += `
+        <li>
+        <a href="/categories/${cat.id_category}">
+        <strong>${escHtml(cat.name)}</strong>
+        <span>(${cat.nb_articles} article</span>
+        ${cat.description ? `<p>${escHtml(cat.description)}</p>` : ''}
+        </a>
+        </li>`;
+    });
+    html += '</ul>';
+    zone.innerHTML = html;
+
+  } catch (err) {
+    zone.innerHTML = `<p style="color:red;">Erreur : ${err.message}</p>`;
+  }
+});
+
+function escHtml(str) {
+  const d = document.createElement('div');
+  d.appendChild(document.createTextNode(str));
+  return d.innerHTML;
+}
+</script>
 
 <?php
 include_once SRC . '/views/layouts/footer.php';

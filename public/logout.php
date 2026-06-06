@@ -21,5 +21,10 @@ if (ini_get('session.use_cookies')) {
     setcookie(session_name(), '', time() - 42000, $path, $domain, $secure, $httponly);
 }
 session_unset();
+
+$stmt = $pdo->prepare("UPDATE users SET last_activity = NULL WHERE id_user = ?");
+$stmt->execute([$_SESSION['user_id']]);
+
+session_destroy();
 session_destroy();
 header('Location: index.php');

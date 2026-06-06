@@ -16,6 +16,13 @@ include_once SRC . "/views/layouts/header.php";
         <article>
             <h1>UTILISATEURS</h1>
         </article>
+        <div class = "searchandresultsContainer">
+            <form id="search-form">
+                <input type="text" id="search-input" placeholder="Rechercher un utilisateur…" minlength="2" />
+                <button type="submit">Rechercher</button>
+            </form>
+        <div id="search-results"></div>
+        </div>
     </section>
 
 <?php
@@ -36,10 +43,67 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endif; ?>
         </div>
 <?php endforeach; ?>
-
 </div>
 
 </main>
+
+<script>
+document.getElementById('search-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const q       = document.getElementById('search-input').value.trim();
+    const zone    = document.getElementById('search-results');
+
+    if (q.length < 2) 
+    { 
+        zone.innerHTML = '<p>Saisissez au moins 2 caractères.</p>';
+        return;
+    }
+
+    zone.innerHTML = '<p>Recherche en cours…</p>';
+
+    try
+    {
+        const response = await fetch('/PROJET_ANNUEL/PROJET-ANNUEL_WEB-HUNTERS/public/search_users.php', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ q })
+    });
+
+    if (!response.ok) throw new Error('Erreur serveur : ' + response.status);
+
+    const data = await response.json();
+
+    if (data.count === 0) 
+    {
+        zone.innerHTML = `<p>Aucun utilisateur trouvé pour "${escHtml(q)}".</p>`;
+        return;
+    }
+
+    let html = `<p>${data.count} utilisateur trouvé pour "${escHtml(q)}"</p><ul>`;
+    data.results.forEach(user => {
+        html += `
+        <li>
+        <a href="/users/${user.id_user}">
+        <strong>${escHtml(user.username)}</strong>
+        <span>(${escHtml(user.role)})</span>
+        ${user.bio ? `<p>${escHtml(user.bio)}</p>` : ''}
+        </a>
+        </li>`;
+    });
+    html += '</ul>';
+    zone.innerHTML = html;
+
+    } catch (err) {
+    zone.innerHTML = `<p style="color:red;">Erreur : ${err.message}</p>`;
+    }
+});
+
+function escHtml(str) {
+    const d = document.createElement('div');
+    d.appendChild(document.createTextNode(str));
+    return d.innerHTML;
+}
+</script>
 
 <?php
 include_once SRC . '/views/layouts/footer.php';

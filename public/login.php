@@ -60,6 +60,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $erreur = 'Nom d’utilisateur ou mot de passe incorrect.';
             LogService::add('login_failed', 'login.php', $user['id_user'] ?? null);
         }
+        if ($user && password_verify($password, $user['password'])) {
+            if ($user['is_banned']) {
+            $erreur = 'Votre compte a été banni.';
+            }
+            if ($user['ban_reason']) {
+            $erreur .= ' Raison : ' . htmlspecialchars($user['ban_reason'], ENT_QUOTES, 'UTF-8');
+            }
+        }
     }
 }
 

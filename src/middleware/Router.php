@@ -33,4 +33,11 @@ class Router {
         http_response_code($code);
         include '../src/views/errors.php';
     }
+
+    public function onlinecheck() {
+        if (isset($_SESSION['user_id'])) {
+        $stmt = $pdo->prepare("UPDATE users SET last_activity = NOW() WHERE id_user = ?");
+        $stmt->execute([$_SESSION['user_id']]);
+    }
+    }
 }

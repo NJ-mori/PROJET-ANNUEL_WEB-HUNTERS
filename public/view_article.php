@@ -92,5 +92,31 @@ include_once SRC . "/views/layouts/header.php";
 </main>
 
 <?php
+$versions = ArticleService::getVersions($article['id_article']);
+$approvedVersions = array_filter($versions, fn($v) => $v['status'] === 'approved');
+?>
+
+<?php if (isset($_SESSION['id_user'])): ?>
+    <a href="edit_article.php?id_article=<?= $article['id_article'] ?>">Modifier cet article</a>
+<?php endif; ?>
+
+<?php if (count($approvedVersions) > 1): ?>
+    <section>
+        <h3>Historique des versions</h3>
+        <ul>
+            <?php foreach ($approvedVersions as $v): ?>
+                <li>
+                    <a href="view_article.php?id_article=<?= $article['id_article'] ?>&version=<?= $v['id_version'] ?>">
+                        Version <?= $v['version_number'] ?>
+                    </a>
+                    — par <?= htmlspecialchars($v['username'] ?? 'Anonyme', ENT_QUOTES, 'UTF-8') ?>
+                    — <?= htmlspecialchars($v['created_at'], ENT_QUOTES, 'UTF-8') ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </section>
+<?php endif; ?>
+
+<?php
 include_once SRC . '/views/layouts/footer.php';
 ?>
